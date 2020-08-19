@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>h5c3之无缝滚动</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .gundong {
+            width: 882px;
+            height: auto;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+        
+        .gundong>ul {
+            width: 200%;
+            /* 这里的容器要2倍---无缝 */
+            list-style: none;
+            animation: move 10s linear infinite;
+        }
+        
+        .gundong>ul:hover {
+            animation-play-state: paused;
+            /* 鼠标移入暂停.还有一个值是play */
+        }
+        
+        .gundong>ul>li {
+            width: 126px;
+            float: left;
+        }
+        
+        .gundong>ul>li>img {
+            width: 100%;
+        }
+        
+        @keyframes move {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-882px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="gundong">
+        <ul>
+            <li><img src="../images/h1.jpg"></li>
+            <li><img src="../images/h3.jpg"></li>
+            <li><img src="../images/h4.jpg"></li>
+            <li><img src="../images/h7.jpg"></li>
+            <li><img src="../images/h8.jpg"></li>
+            <li><img src="../images/h9.jpg"></li>
+            <li><img src="../images/h11.jpg"></li>
+            <li><img src="../images/h1.jpg"></li>
+            <li><img src="../images/h3.jpg"></li>
+            <li><img src="../images/h4.jpg"></li>
+            <li><img src="../images/h7.jpg"></li>
+            <li><img src="../images/h8.jpg"></li>
+            <li><img src="../images/h9.jpg"></li>
+            <li><img src="../images/h11.jpg"></li>
+        </ul>
+    </div>
+</body>
+
+</html>
