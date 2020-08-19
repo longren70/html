@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全屏接口的使用</title>
+</head>
+
+<body>
+    <div>
+        <img src="../images/11.jpg">
+        <input type="button" id="full" value="全屏">
+        <input type="button" id="cancelFull" value="退出全屏">
+        <input type="button" id="isFull" value="是否全屏">
+    </div>
+
+    <script>
+        /*        
+                                                                                                                                                                    全屏操作的主要方法和属性：
+                                                                                                                                                                    1.requestFullScreen()---开启全屏显示
+                                                                                                                                                                    2.cancelFullScreen()---退出全屏显示------W3C建议使用exitFullscreen()
+                                                                                                                                                                    3.fullScreenElement()--- 是否全屏显示
+                                                                                                                                                                */
+        window.onload = function() {
+            // 全屏显示
+            var div = document.querySelector("div");
+            document.querySelector("#full").onclick = function() {
+                // 教材中要对浏览器进行判断，并分别加上前缀（谷歌：webkit  Firefox：moz   IE：ms   Opera：o）
+                div.requestFullscreen(); // 这里用的是requestFullscreen()这个函数---不要判断即可用。注意screen的s是小写，不是大写（教材是大写）
+            }
+
+            // 退出全屏
+            document.querySelector("#cancelFull").onclick = function() {
+                // if (document.cancelFullScreen) {
+                //     document.cancelFullscreen();
+                // } else if (document.webkitCancelFullscreen) {
+                //     document.webkitCancelFullscreen();
+                // } else if (document.mozCancelFullScreen) {
+                //     document.mozCancelFullscreen();
+                // } else if (document.msCancelFullScreen) {
+                //     document.msCancelFullscreen();
+                // }
+                document.exitFullscreen(); // 按照视频里的如上面的做法--不行。 W3C建议使用exitFullscreen()
+            }
+
+            // 判断是否全屏
+            document.querySelector("#isFull").onclick = function() {
+                if (document.fullscreenElement) {
+                    alert("true");
+                } else {
+                    alert("false");
+                }
+            }
+
+
+            // document.body.addEventListener('click', function() {　　
+            //     requestFullScreen();
+            //     // 5秒钟自动退出全屏                　　
+            //     setTimeout(function() {　　　　
+            //         exitFullscreen();　　
+            //     }, 5000);
+            // }, false);
+
+        }
+    </script>
+</body>
+
+</html>
