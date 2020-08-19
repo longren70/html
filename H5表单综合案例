@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H5表单综合案例</title>
+    <link rel="stylesheet" href="css/form.css">
+</head>
+
+<body>
+    <form action="" id="myform">
+        <fieldset>
+            <legend>学生档案</legend>
+            <label for="username">姓名：</label>
+            <input type="text" name="username" id="username" placeholder="请输入用户名">
+
+            <label for="email">电子邮箱：</label>
+            <input type="email" name="email" id="email" required multiple placeholder="可输多个邮箱，用英文逗号隔开">
+
+            <label for="userphont">手机号：</label>
+            <input type="tel" name="userphone" id="userphone" pattern="^1\d{10}$">
+
+            <label for="collage">所属学院：</label>
+            <!-- chrome浏览器不支持datalist标签，只有苹果的opera支持 -->
+            <input type="text" name="collage" id="collage" placeholder="请选择(这里用了datalist标签，只有苹果的Opera支持，可换select)">
+            <datalist id="clist">
+                <option value="前端与移动开发学院"></option>
+                <option value="Java学院"></option>
+                <option value="C++学院"></option>
+            </datalist>
+
+            <label for="wenjian">上传文件：</label>
+            <input type="file" id="wenjian" multiple>
+
+            <label for="score">入学成绩：</label>
+            <input type="number" id="score" max="100" min="0" value="60">
+
+            <label for="level">基础水平：</label>
+            <meter id="level" max="100" min="0" low="59" high="90"></meter>
+
+            <label for="intime">入学日期：</label>
+            <input type="date" name="intime" id="intime">
+
+            <label for="leavetime">毕业日期：</label>
+            <input type="date" name="leavetime" id="leavetime">
+
+            <input type="submit">
+        </fieldset>
+    </form>
+
+    <script>
+        document.getElementById("score").oninput = function() { // 使入学成绩和基础水平的进度条想关联
+            document.getElementById("level").value = this.value;
+        }
+
+        document.getElementById("email").oninvalid = function() {
+            this.setCustomValidity("电子邮箱是必填项！"); // 自定义弹出的提示内容
+        }
+    </script>
+</body>
+
+</html>
