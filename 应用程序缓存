@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!-- manifest="应用程序缓存清单文件的路径，建议文件的扩展名是appcache，这个文件的本质就是一个文本文件" manifest这个属性要写在html标签中-->
+<html lang="en" manifest="demo.appcache">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>应用程序缓存</title>
+    <style>
+        img {
+            width: 500px;
+            display: block;
+        }
+    </style>
+
+</head>
+
+<body>
+    <img src="../images/h1.jpg" alt="">
+    <img src="../images/h2.jpg" alt="">
+    <img src="../images/h3.jpg" alt="">
+    <img src="../images/h4.jpg" alt="">
+
+</body>
+
+</html>
