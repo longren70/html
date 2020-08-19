@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义播放器</title>
+    <!--需要把整个文件夹引进来-->
+    <link rel="stylesheet" href="../css/font-awesome-4.7.0/css/font-awesome.css">
+    <!-- <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../css/player.css">
+    <script src="../js/jquery.js"></script>
+</head>
+
+<body>
+    <h3 class="palyerTitle">视频播放器</h3>
+    <div class="player">
+        <video id="myvideo" src="">
+            <input type="file">
+        </video>
+        <div class="controls">
+            <a href="javascript:;" class="switch fa fa-play"></a>
+            <a href="javascript:;" class="expand fa fa-expand"></a>
+            <div class="progress">
+                <div class="bar"></div>
+                <div class="loaded"></div>
+                <div class="elapse"></div>
+            </div>
+            <div class="time">
+                <span class="currentTime">00:00:00</span> \
+                <span class="totalTime">00:00:00</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //通过jQuery来实现功能
+        $(function() {
+            // 1.获取播放器---因为play() pause()等方法是原生js，使用jQuery时候要将其对象转换成dom元素
+            var video = $("#myvideo")[0];
+
+            // 2.实现播放与暂停
+            $(".switch").click(function() {
+                // 实现播放与暂停切换：
+                if (video.paused) {
+                    video.play(); // 移除暂停样式，添加播放样式。play()这是原生的js方法
+                } else {
+                    video.pause(); // 移除暂停样式，添加播放样式。
+                }
+                // 设置标签的样式： fa-pause是暂停   fa-play是播放
+                $(this).toggleClass("fa-play fa-pause");
+            });
+
+            // 3.实现全屏操作
+            $(".expand").click(function() {
+                // 全屏，(不同的浏览器需要添加不同的前缀,视频里要加前缀，我试过了，Chrome和Firefox都不要)
+                if (document.fullscreenElement) { // 要用document判断是否全屏（视频里并没有这个判断）
+                    document.exitFullscreen();
+                    $(this).toggleClass("fa-expand fa-compress") // 并不需要这个切换，全屏后会自动显示退出全屏和音量按钮（Firefox没有）  
+                }
+                video.requestFullscreen(); // 这里要用video，而不能用document
+            });
+
+            // 4.实现播放业务逻辑：当视频文件可以播放时触发下面事件
+            video.oncanplay = function() {
+                setTimeout(function() { // 模拟下载延时2秒
+                    // 1) 将视频文件设置为显示
+                    video.style.display = "block";
+                    // 2) 获取当前视频文件的总时长（单位是秒，同时获取了小数值），计算出时分秒
+                    var total = video.duration;
+                    /*
+                    // 3) 计算时分秒  60 * 60 =3600  时：3700/3600   分：3700%3600>>100/60  时分秒都有小数
+                    var hour = Math.floor(total / 3600);
+                    hour = hour < 10 ? "0" + hour : hour; // 补0操作
+                    var minute = Math.floor(total % 3600 / 60);
+                    minute = minute < 10 ? "0" + minute : minute;
+                    var second = Math.floor(total % 60);
+                    second = second < 10 ? "0" + second : second;
+                    // 4. 将计算出来的时分秒显示到指定的容器中
+                    $(".totalTime").html(hour + ":" + minute + ":" + second);
+                    */
+                    // 4. 将计算出来的时分秒显示到指定的容器中
+                    var result = getResult(total);
+                    $(".totalTime").html(result);
+                }, 2000);
+            }
+
+            // 定义一个函数：通过总时长计算出时分秒
+            function getResult(time) {
+                // 计算时分秒  60 * 60 =3600  时：3700/3600   分：3700%3600>>100/60  时分秒都有小数
+                var hour = Math.floor(time / 3600);
+                hour = hour < 10 ? "0" + hour : hour; // 补0操作
+                var minute = Math.floor(time % 3600 / 60);
+                minute = minute < 10 ? "0" + minute : minute; // 补0操作
+                var second = Math.floor(time % 60);
+                second = second < 10 ? "0" + second : second; // 补0操作
+                //返回结果
+                return hour + ":" + minute + ":" + second;
+            }
+
+            // 5.实现播放过程中的业务逻辑，当视频播放时会触发ontimeupdate事件；如果修改了currentTime值也会触发此事件
+            video.ontimeupdate = function() {
+                // 1)获取当前的播放时间
+                var current = video.currentTime;
+                // 2)计算出时分秒
+                var result = getResult(current);
+                // 3)将结果展示在指定的dom元素中
+                $(".currentTime").html(result);
+                // 4)设置当前播放进度条的样式:当前时间除以总时长
+                var percent = current / video.duration * 100 + "%";
+                $(".elapse").css("width", percent); // 此宽度在css中设置为%
+            }
+
+            // 6.实现视频的跳播
+            $(".bar").click(function(e) {
+                // 1）获取当前鼠标相对于父元素的left值--偏移量
+                var offset = e.offsetX;
+                // 2）计算偏移量值相对于父元素总宽度的比例
+                var percent = offset / $(this).width();
+                // 3)计算这个位置对应的视频进度值
+                var current = percent * video.duration;
+                // 4) 设置当前视频的currentTime
+                video.currentTime = current;
+            });
+
+            // 7.播放完毕之后重置播放器的状态
+            video.onended = function() {
+                video.currentTime = 0;
+                $(".switch").removeClass("fa-pause").addClass("fa-play");
+            }
+        });
+    </script>
+
+</body>
+
+</html>
