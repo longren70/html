@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定位</title>
+    <style>
+        .box {
+            width: 300px;
+            height: 300px;
+            background: #621;
+        }
+        
+        .box1 {
+            position: relative;
+            top: 100px;
+            left: 100px;
+            width: 300px;
+            height: 300px;
+            background: #369;
+        }
+        
+        .father {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            background: #663;
+        }
+        
+        .son {
+            position: absolute;
+            top: 50px;
+            right: 30px;
+            width: 100px;
+            height: 100px;
+            background: blue;
+        }
+        
+        .yeye {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            background: #360;
+        }
+        
+        .father1 {
+            width: 300px;
+            height: 300px;
+            background: #633;
+        }
+        
+        .son1 {
+            position: absolute;
+            top: 50px;
+            right: 30px;
+            width: 100px;
+            height: 100px;
+            background: skyblue;
+        }
+        
+        .fix {
+            position: fixed;
+            top: 350px;
+            right: 50px;
+            width: 200px;
+            height: 200px;
+            background: red;
+        }
+        
+        .w {
+            width: 800px;
+            height: 1400px;
+            background: pink;
+            margin: 0 auto;
+        }
+        
+        .fixed {
+            position: fixed;
+            top: 500px;
+            /* 这个top要加上，否则不显示这个盒子*/
+            left: 50%;
+            /* 走浏览器宽度的一半*/
+            margin-left: 405px;
+            /* 利用margin 再走版心盒子宽度的一半距离*/
+            width: 50px;
+            height: 150px;
+            background: skyblue;
+        }
+        
+        .nav {
+            position: sticky;
+            bottom: 0px;
+            width: 800px;
+            height: 50px;
+            background: slateblue;
+            margin: 0 auto;
+        }
+        
+        .nav1 {
+            position: sticky;
+            top: 80px;
+            width: 30px;
+            height: 200px;
+            background: slateblue;
+        }
+        
+        .juzhong {
+            position: absolute;
+            left: 50%;
+            margin-left: -150px;
+            top: 50%;
+            margin-top: -150px;
+            width: 300px;
+            height: 300px;
+            background: orangered;
+        }
+        
+        .sp {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: orchid;
+        }
+        
+        .d {
+            position: absolute;
+            background: green;
+        }
+    </style>
+</head>
+
+<hr>
+<!--
+        1. 定位 = 定位模式 + 遍偏移
+        2. 定位模式：通过css的position属性来设定：static（静态定位）、relative（相对定位）、absolute（绝对定位）、fixed（固定定位）
+        3. 边偏移：top、bottom、left、right---可以是像素值和百分比
+        4. 静态定位：是元素的默认定位方式，也就是无定位的意思，写与不写一样
+        5. 相对定位：是元素在移动位置的时候，是相对于它原来的位置来说的（自恋型）。  语法：选择器{position:relative;}
+                注意：它原来在标准流的位置继续占有，后面的盒子仍然以标准流的方式对待它（不脱标，继续保留原来的位置）
+        6. 绝对定位：是元素在移动位置的时候，相对于它的祖先元素来说的（拼爹型）。  语法：选择器{position:absolute;}
+                注意：1）如果没有祖先元素或者祖先元素没有定位，则以浏览器为准进行定位（document文档）
+                      2）如果祖先元素有定位（相对、绝对、固定），则以最近一级的有定位的祖先元素为参考点移动位置。
+                      3）绝对定位不再占有原来的位置（脱标）。
+        7. 定位口诀：子绝父相----子级是绝对定位的话，父级要用相对定位。
+        8. 固定定位：是元素固定在浏览器可视区的位置。主要使用场景：可以在浏览器页面滚动时元素的位置不会改变。  语法：选择器{position:fixed;}
+                注意特点：1）以浏览器的可视窗口为参考点移动元素。跟父级元素没有任何关系、不随滚动条而滚动。
+                         2）固定定位不占有原先的位置。固定定位也是脱标的，可以看做是一种特殊的绝对定位。
+        9. 粘性定位：可以被认为是相对定位和固定定位的混合。 sticky粘性的。 语法：选择器{position:relative; top:10px;}
+                注意：1）以浏览器的可视窗口为参照点移动元素（固定定位特点）
+                      2）粘性定位占有原先的位置（相对定位的特点）
+                      3）必须添加top、left、right、bottom其中的一个属性值才有效。
+                      4）现在IE 不支持
+        10. 定位的特殊性：绝对定位和固定定位也和浮动类似。
+                      1）行内元素添加绝对定位或固定定位后，可以直接设置高度和宽度
+                      2）块级元素添加绝对定位或固定定位后，如果不给宽度或者高度，默认大小是内容的大小。
+        
+    -->
+
+<div class="box1">我是相对定位的盒子，继续占有原来的位置，不会脱标.position: relative;</div>
+<div class="box">我是标准盒子</div>
+
+<div class="father">我是祖先元素盒子，是相对定位的position: relative;
+    <div class="son">我是子元素盒子，绝对定位的。position: absolute;</div>
+</div>
+
+<div class="yeye">我是祖先元素盒子，是相对定位的。position: relative;
+    <div class="father1">我是父级元素盒子，没有定位
+        <div class="son1">我是子元素盒子，绝对定位position: absolute;以爷爷为准了</div>
+    </div>
+</div>
+
+<div class="juzhong">使这个盒子在可视窗口水平和垂直居中：left：50%；margin-left:-100px; (先让左侧移到父元素的水平中心--再让盒子向左移到自身宽度的一半) top:50%;margin-top:-100px;（高度同样）
+</div>
+
+<div class="fix">我是一个固定定位的盒子，脱标，和父级元素没有任何关系，也不随滚动条滚动</div>
+
+</br>
+<div>隔开一个空间来---加一个标准流</div>
+
+<div class="fixed">固定定位之固定到版心的右侧。 position: fixed;</div>
+<div class="w">我一个版面大盒子,版心盒子，宽800像素
+    <div class="nav1">左侧的粘性定位盒子</div>
+</div>
+
+</hr>
+
+<div class="nav">我是一个应用了粘性定位的导航栏---到达可视窗口的底部后就不再向下了。position: sticky;</div>
+
+
+<p>这里放点东西，测试一下粘性定位的</p>
+<p>这里放点东西，测试一下粘性定位的</p>
+<p>这里放点东西，测试一下粘性定位的</p>
+<p>这里放点东西，测试一下粘性定位的</p>
+<p>这里放点东西，测试一下粘性定位的</p>
+<p>这里放点东西，测试一下粘性定位的</p>
+<p>这里放点东西，测试一下粘性定位的</p>
+<p>这里放点东西，测试一下粘性定位的</p>
+
+<span class="sp">行内元素添加绝对定位或固定定位后，可以直接设置高度和宽度</span>
+
+<div class="d">块级元素添加绝对定位或固定定位后，如果不给宽度或者高度，默认大小是内容的大小。</div>
+
+</body>
+
+</html>
