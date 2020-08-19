@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H5拖拽接口的使用</title>
+    <style>
+        #div1 {
+            float: left;
+            width: 200px;
+            height: 200px;
+            border: 1px solid #060;
+            margin: 20px;
+        }
+        
+        #div1>p {
+            background: yellow;
+        }
+        
+        #div2 {
+            float: left;
+            width: 200px;
+            height: 200px;
+            border: 1px solid blue;
+            margin: 20px;
+        }
+        
+        #div3 {
+            float: left;
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 在H5中,如果想拖拽元素，就必须为元素添加draggable="true"属性，图片和超链接默认就可以拖拽-->
+    <div class="div1" id="div1">
+        <p id="pe" draggable="true">试试把我拖过去到div2中再拖回去</p>
+        <p id="pe2" draggable="true">试试把我拖过去到div3中</p>
+        <p id="pe3" draggable="true">把我拖过去到div2222中</p>
+    </div>
+
+    <div class="div2" id="div2"></div>
+    <div class="div3" id="div3"></div>
+
+    <script>
+        // 学习拖拽主要是学拖拽事件
+        /*
+        应用于被拖拽元素的事件
+        ondrag        应用于拖拽元素，整个过程都会调用
+        ondragstart   应用于拖拽元素，当拖拽开始时调用
+        ondragleave   应用于拖拽元素，当鼠标离开拖拽元素时调用
+        ondragend     应用于拖拽元素，当拖拽结束时调用
+        */
+        //var obj = null; // 当前被拖拽的元素。全局变量不安全，消耗内存
+
+        document.ondragstart = function(e) {
+            // 通过事件捕获来获取当前被拖拽的子元素
+            // console.log(e.target);
+            e.target.style.opacity = 0.5;
+            e.target.parentNode.style.borderWidth = "5px";
+            obj = e.target; // 将被拖拽的元素赋值给全局变量
+            /* 为了避免使用全局变量，通过dataTransfer来实现数据的存储和获取。
+                存储setData(format,data) 其中format:数据的类型有text/html和text/uri-list, data数据一般来说是字符串值。
+            */
+            e.dataTransfer.setData("text/html", e.target.id);
+            //console.log(777);
+        }
+        document.ondragend = function(e) {
+            e.target.style.opacity = 1;
+            e.target.parentNode.style.borderWidth = "1px";
+            //console.log(888);
+        }
+        document.ondragleave = function(e) {
+            console.log(111);
+            e.target.parentNode.style.borderWidth = "1px";
+        }
+        document.ondrag = function(e) {
+            //console.log(222);
+        }
+
+        /*
+        应用于目标元素的事件
+        ondragenter     应用于目标元素，拖拽元素进入时调用
+        ondragover      应用于目标元素，当停留在目标元素上时调用
+        ondragleave     应用于目标元素，当在目标元素上松开鼠标时调用
+        ondrop          应用于目标元素，当鼠标离开目标元素时调用
+        */
+
+        document.ondragenter = function(e) {
+            //console.log(333);    // 拖拽一次会依次输出4次，拖到第三个div是还输出2次333
+        }
+        document.ondragover = function(e) {
+            e.preventDefault(); //阻止浏览器的默认行为---注意一定要在这里阻止
+            //console.log(444);      // 这个有点想是leave，只要拖拽离开就有输出444
+        }
+        document.ondrop = function(e) { // 浏览器默认会阻止ondrop事件---我们必须在ondragover事件中阻止默认行为
+            // 添加元素
+            var id = e.dataTransfer.getData("text/html");
+            e.target.appendChild(document.getElementById(id));
+            //console.log(555);    // 只要有鼠标松开（drop）就有输出555
+        }
+        document.ondragleave = function(e) {
+            //console.log(666);      // 拖拽离开过程中会输出666
+            //e.target.parentNode.style.borderWidth = "1px";       // 这句放在这里可以去掉5px的边框，但是又报borderWidth未定义
+        }
+    </script>
+</body>
+
+</html>
