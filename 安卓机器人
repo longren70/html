@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安卓机器人</title>
+    <style>
+        .content {
+            width: 400px;
+            height: 600px;
+            border: 1px solid red;
+            margin: 100px auto;
+            /* position: relative; */
+        }
+        
+        .an_header {
+            width: 250px;
+            height: 125px;
+            background-color: darkgreen;
+            margin: 10px auto;
+            border-radius: 125px 125px 0 0;
+            position: relative;
+        }
+        /* 使用伪元素添加眼睛 */
+        
+        .an_header::before,
+        .an_header::after {
+            content: "";
+            /* 这类伪元素一定要有content属性（不管是否有具体内容） */
+            width: 20px;
+            /* 如果需要设置宽度高度就要将其转换为块级元素(有三种方法：float，position和display)，它默认是行级元素 */
+            height: 20px;
+            border-radius: 50%;
+            background-color: #fff;
+            position: absolute;
+            top: 60px;
+        }
+        
+        .an_header::before {
+            left: 70px;
+        }
+        
+        .an_header::after {
+            right: 70px;
+        }
+        
+        .an_body {
+            width: 250px;
+            height: 250px;
+            border-radius: 0 0 10px 10px;
+            background-color: darkgreen;
+            margin: auto;
+            position: relative;
+        }
+        
+        .an_body::before,
+        .an_body::after {
+            /* 使用伪类添加手臂 */
+            content: "";
+            width: 35px;
+            height: 200px;
+            border-radius: 6px;
+            background-color: darkgreen;
+            position: absolute;
+            top: 20px;
+        }
+        
+        .an_body::before {
+            left: -50px;
+        }
+        
+        .an_body::after {
+            right: -50px;
+        }
+        
+        .an_footer {
+            background-color: darkgreen;
+            position: relative;
+        }
+        
+        .an_footer::before,
+        .an_footer::after {
+            content: "";
+            width: 35px;
+            height: 160px;
+            border-radius: 0 0 6px 6px;
+            background-color: darkgreen;
+            position: absolute;
+            top: 0px;
+        }
+        
+        .an_footer::before {
+            left: 120px;
+        }
+        
+        .an_footer::after {
+            right: 120px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div class="an_header"></div>
+        <div class="an_body"></div>
+        <div class="an_footer"></div>
+    </div>
+</body>
+
+</html>
