@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>切割轮播图</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .lunbotu {
+            width: 500px;
+            height: 300px;
+            margin: 100px auto;
+            position: relative;
+        }
+        
+        .tupian {
+            width: 100%;
+            height: 100%;
+            list-style: none;
+            transform: rotate3d(1, 1, 0, -20deg);
+            /* 先加上这个，更好立体地看图片移动放置的位置和方向*/
+            transform-style: preserve-3d;
+            /* 保持3d的效果 */
+        }
+        
+        .tupian>li {
+            width: 20%;
+            height: 100%;
+            /* background-color: #ccc; */
+            float: left;
+            position: relative;
+            transform-style: preserve-3d;
+            /* 保持3d的效果 */
+            transition: transform 0.5s;
+            /* 添加过度效果。需要两个值：为哪一个样式添加，延时时间 */
+        }
+        
+        .tupian>li>span {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .tupian>li>span:nth-of-type(1) {
+            background: url(../images/q01.jpg);
+            transform: translateZ(150px);
+        }
+        
+        .tupian>li>span:nth-of-type(2) {
+            background: url(../images/q03.jpg.);
+            transform: translateY(-150px) rotateX(90deg);
+        }
+        
+        .tupian>li>span:nth-of-type(3) {
+            background: url(../images/q02.jpg.);
+            transform: translateZ(-150px) rotateX(180deg);
+        }
+        
+        .tupian>li>span:nth-of-type(4) {
+            background: url(../images/q04.jpg.);
+            transform: translateY(150px) rotateX(-90deg);
+        }
+        /* 设置每一个li元素所显示的图片的位置 */
+        
+        .tupian>li:nth-of-type(2) span {
+            background-position: -100% 0;
+        }
+        
+        .tupian>li:nth-of-type(3) span {
+            background-position: -200% 0;
+        }
+        
+        .tupian>li:nth-of-type(4) span {
+            background-position: -300% 0;
+        }
+        
+        .tupian>li:nth-of-type(5) span {
+            background-position: -400% 0;
+        }
+        
+        .prev,
+        .next {
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 60px;
+            top: 50%;
+            transform: translate(0, -50%);
+            /* z-index: 9999; */
+        }
+        
+        .prev {
+            left: 0;
+        }
+        
+        .next {
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="lunbotu">
+        <ul class="tupian">
+            <!-- 每一个li就是一个结构块 -->
+            <li>
+                <!-- 每一个span是这个结构块中的某一个面，用来显示图片 -->
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </li>
+            <li>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </li>
+            <li>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </li>
+            <li>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </li>
+            <li>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </li>
+
+        </ul>
+        <!-- 注意：a标签的一个坑---如果是要用到js来获取点击效果，在a标签的href属性值中一定要加上href="javascript:;"否则会没有效果的。 -->
+        <a href="javascript:;" class="prev">&lt;</a>
+        <a href="javascript:;" class="next">&gt;</a>
+    </div>
+
+    <!-- 实现切割轮播功能 -->
+    <script src="../js/jquery.js"></script>
+    <script>
+        $(function() {
+            // 添加索引(否则会出现个张图片的20%显示在一起)
+            var index = 0;
+            // 添加节流阀（控制快速单击时候会同时出现多张图片的20%一起切换）
+            var flag = true;
+            // 下一张
+            $(".next").on("click", function() {
+                if (flag == true) {
+                    // 设置节流阀
+                    flag = false;
+                    index--;
+                    // 所谓下一张就是将所有的li元素围绕x轴旋转
+                    $("li").each(function(key, value) {
+                        // 通过添加transform样式进行旋转
+                        $(this).css({
+                            "transform": "rotateX(" + (index * 90) + "deg)",
+                            "transition-delay": (key * 0.2) + "s"
+                        });
+                    });
+                    setTimeout(function() {
+                        flag = true;
+                    }, 1000);
+                }
+            });
+            // 上一张
+            $(".prev").on("click", function() {
+                if (flag == true) {
+                    // 设置节流阀
+                    flag = false;
+                    index++;
+                    // 所谓下一张就是将所有的li元素围绕x轴旋转
+                    $("li").each(function(key, value) {
+                        // 通过添加transform样式进行旋转
+                        $(this).css({
+                            "transform": "rotateX(" + (index * 90) + "deg)",
+                            "transition-delay": (key * 0.2) + "s"
+                        });
+                    });
+                    setTimeout(function() {
+                        flag = true;
+                    }, 1000);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
