@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>盒模型之图片边框</title>
+    <style>
+        div {
+            width: 1200px;
+            margin: 20px auto;
+        }
+        
+        .item {
+            width: 300px;
+            height: 200px;
+            margin: 100px 20px;
+            box-sizing: border-box;
+            /* 添加盒模型 */
+        }
+        
+        .item:hover {
+            border: 3px solid red;
+            /* 不添加盒模型的话，加了这个页面会有抖动，即边框会向后挤 */
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <img class="item img1" src="../images/h1.jpg" alt="">
+        <img class="item img1" src="../images/h2.jpg" alt="">
+        <img class="item img1" src="../images/h3.jpg" alt="">
+
+    </div>
+</body>
+
+</html>
