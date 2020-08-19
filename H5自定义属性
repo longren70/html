@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义属性</title>
+</head>
+
+<body>
+
+    <!-- 自定义属性规范：
+        1.必须以 data- 开头
+        2.data-之后必须至少有一个字符，如果多个单词中间用 - 连接
+        3.建议：
+            1.名称应该都使用小写
+            2.名称不要有任何特殊字符
+            3.名称不要使用纯数字命名
+
+-->
+
+    <p data-school-name="itcast">传智播客</p>
+    <p data-name="itcast22">传智播客</p>
+
+    <!-- 取属性值:
+            将data- 后面的单词一定要使用驼峰法连接，否则有可能无法取到值
+-->
+    <script>
+        window.onload = function() {
+            var p = document.querySelector("p");
+            var value = p.dataset["schoolName"];
+            //var value = p.dataset["schoolname"];     // 取不到值，报undefined，会认为是自定义的名称是schoolname，而不是schoolName
+
+            console.log(value); // itcast
+
+            var p2 = document.querySelectorAll("p")[1];
+            var v2 = p2.dataset["name"];
+            console.log(v2); // itcast22
+        }
+    </script>
+
+</body>
+
+</html>
