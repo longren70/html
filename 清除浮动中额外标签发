@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 ">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>清除浮动</title>
+    <style>
+        .box{
+            width: 800px;
+            margin:0 auto;
+            background: skyblue;
+        }
+        .box2{
+            overflow: hidden;      /*属性值还有auto 或 scroll*/ 
+            width: 800px;
+            margin:0 auto;
+        }
+        .damao{
+            float: left;
+            width: 300px;
+            height: 200px;
+            background: blue;
+        }
+        .ermao{
+            float: left;
+            width: 200px;
+            height: 200px;
+            background: pink;
+        }
+        .clear{
+            clear: both;
+        }
+        .clearfix:after{
+            content: "";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+        .clearfix{
+            *zoom: 1;       /* IE6、7专有*/
+        }
+        .clearfix2:before,
+        .clearfix2:after{
+            content: "";
+            display:table;
+        }
+        .clearfix2:after{
+            clear: both;
+        }
+        .clearfix2{
+            *zoom: 1;     /* IE6、7专有*/
+        }
+        .footer{
+            height: 100px;
+            background: #080;
+        }
+    </style>
+</head>
+
+<body>
+    <p>浮动布局注意点：1.浮动和标准流的父盒子搭配，即先用标准流的父元素排列上下位置，之后内部子元素采取浮动排列左右位置。
+        2.一个元素浮动了，理论上其余的兄弟元素也要浮动，浮动的盒子只会影响浮动盒子后面的标准流，不会影响前面的标准流。
+    </p>
+    <p>清楚浮动的本质是--清楚浮动元素脱离标准流造成的影响--高度塌陷</p>
+    <p>父元素不设定高度----根据子元素的个数，由子元素自己撑开高度，这样清楚浮动后就不有高度塌陷的问题</p>    
+    <p>方法一：额外标签法，也叫隔墙法。这个新增的盒子必须是块级元素，不能是行内元素，如span就不行</p>
+    <!--方法一：额外标签法，也叫隔墙法-->
+    <div class="box">
+        <div class="damao">大毛</div>
+        <div class="ermao">二毛</div>
+        <!--这个新增的盒子必须是块级元素，不能是行内元素，如span就不行-->
+        <div class="clear"></div>
+    </div>
+    <div class="footer">这里是底部</div>
+
+
+    <p>方法二：父元素加overflow 就是给父级元素添加overflow属性，其值有hidden、auto、scroll。
+        优点：代码简洁；缺点：无法显示溢出部分内容
+    </p>
+    <!--方法二：父元素加overflow-->
+    <div class="box2">
+        <div class="damao">大毛</div>
+        <div class="ermao">二毛</div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="footer">这里是底部</div>
+
+    <p>方法三：添加:after伪元素，在父元素中添加一个类，类名通常去clearfix 。
+        是额外标签法的升级版，也是给父元素添加新标签。优点：没在HTML中增加标签，结构更简单，但要照顾低版本浏览器
+    </p>
+    <!--方法三：添加:after伪元素，在父元素中添加一个类，类名通常去clearfix -->
+    <div class="box clearfix">
+        <div class="damao">大毛</div>
+        <div class="ermao">二毛</div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="footer">这里是底部</div>
+
+    <p>方法四：添加:before 和 :after 双伪元素，在父元素中添加一个类，类名通常去clearfix  优点：代码简洁；
+        缺点：要照顾IE67低版本浏览器；代表网站：小米，腾讯等
+    </p>
+    <!--方法四：添加:before 和 :after 双伪元素，在父元素中添加一个类，类名通常去clearfix-->
+    <div class="box clearfix2">
+        <div class="damao">大毛</div>
+        <div class="ermao">二毛</div>
+        <div class="ermao">二毛</div>
+        <div class="ermao">二毛</div>
+        <div class="ermao">二毛</div>
+        <div class="ermao">二毛</div>
+        <div class="clear"></div>
+    </div>
+    <div class="footer">这里是底部</div>
+</body>
+</html>
