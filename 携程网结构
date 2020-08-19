@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>携程网结构</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .header {
+            width: 100%;
+            display: flex;
+            /* 设置父元素为伸缩盒子（也叫弹性盒子） */
+        }
+        
+        .header a {
+            /* width: 100%; */
+            flex: 1;
+            /* 设置当前子元素占据父容器剩余宽度的比例（只有一个子元素，就相当于100%） */
+        }
+        
+        .header a img {
+            width: 100%;
+        }
+        
+        .main {
+            width: 100%;
+            padding: 0 10px;
+            /* 设置盒模型---可以消除加了padding: 0 10px;和 width: 100%;而产生的滚动条 */
+            box-sizing: border-box;
+            /* display: flex;   注意：要看清楚盒子之间的结构关系，这里加了这个伸缩盒子后，下面的item类的盒子会显示在一行，而不是正常的div各占一行*/
+        }
+        
+        .main .item {
+            width: 100%;
+            height: 100px;
+            background-color: #336699;
+            margin-top: 10px;
+            border-radius: 10px;
+            display: flex;
+        }
+        
+        .item:nth-of-type(1) {
+            background-color: #658;
+        }
+        
+        .item:nth-of-type(2) {
+            background-color: #225;
+        }
+        
+        .item:nth-of-type(3) {
+            background-color: #912;
+        }
+        
+        .item:nth-of-type(4) {
+            background-color: #c253cc;
+        }
+        
+        .item .left {
+            flex: 1;
+        }
+        
+        .item .right {
+            flex: 2;
+            /* 设置换行显示 */
+            flex-wrap: wrap;
+            /* 设置为伸缩盒子 */
+            display: flex;
+        }
+        
+        .item .right a {
+            /* 如果想让子元素换行显示，必须为子元素设置宽度(这个宽度不能用flex：1来设置，因为宽度不够大) */
+            width: 50%;
+            display: block;
+            color: #ffffff;
+            line-height: 50px;
+            text-align: center;
+            text-decoration: none;
+            border-left: 1px solid #ffffff;
+            border-bottom: 1px solid #ffffff;
+            box-sizing: border-box;
+            /*  设置为伸缩盒子，否则不在一行显示（会被border撑大） */
+        }
+        
+        .item .right a :nth-last-of-type(-n+2) {
+            border-bottom: none;
+        }
+        
+        .extra {
+            width: 100%;
+            display: flex;
+            margin-top: 10px;
+        }
+        
+        .extra a {
+            flex: 1;
+        }
+        
+        .extra a img {
+            width: 100%;
+            height: 200px;
+        }
+        
+        footer {
+            width: 100%;
+            font-size: 14px;
+        }
+        
+        footer .nav {
+            margin: 3px 10px;
+            width: 100%;
+            display: flex;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        footer .nav a {
+            flex: 1;
+            line-height: 30px;
+            text-align: center;
+            color: #888;
+            text-decoration: none;
+        }
+        
+        footer .link {
+            text-align: center;
+            padding: 0 20px;
+            line-height: 25px;
+        }
+        
+        footer .copyright {
+            text-align: center;
+            padding: 0 20px;
+            line-height: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="">
+                <img src="../images/bar.jpg" alt="">
+            </a>
+        </header>
+        <main class="main">
+            <section class="item">
+                <div class="left"></div>
+                <div class="right">
+                    <a href="">海外酒店</a>
+                    <a href="">团购</a>
+                    <a href="">特惠酒店</a>
+                    <a href="">客栈公寓</a>
+                </div>
+            </section>
+            <section class="item">
+                <div class="left"></div>
+                <div class="right">
+                    <a href="">海外酒店</a>
+                    <a href="">团购</a>
+                    <a href="">特惠酒店</a>
+                    <a href="">客栈公寓</a>
+                </div>
+            </section>
+            <section class="item">
+                <div class="left"></div>
+                <div class="right">
+                    <a href="">海外酒店</a>
+                    <a href="">团购</a>
+                    <a href="">特惠酒店</a>
+                    <a href="">客栈公寓</a>
+                </div>
+            </section>
+            <section class="item">
+                <div class="left"></div>
+                <div class="right">
+                    <a href="">海外酒店</a>
+                    <a href="">团购</a>
+                    <a href="">特惠酒店</a>
+                    <a href="">客栈公寓</a>
+                </div>
+            </section>
+            <section class="extra">
+                <a href="">
+                    <img src="../images/fanchuan.jpg" alt="">
+                </a>
+                <a href="">
+                    <img src="../images/fanchuan.jpg" alt="">
+                </a>
+
+            </section>
+        </main>
+
+        <footer>
+            <nav class="nav">
+                <a href="">电话预订</a>
+                <a href="">下载客户端</a>
+                <a href="">我的订单</a>
+            </nav>
+
+            <p class="link">
+                <a href="">网站地图</a> |
+                <a href="">ENGLISH</a> |
+                <a href="">电脑版</a>
+            </p>
+            <p class="copyright">
+                &copy;1995 携程旅行
+            </p>
+
+        </footer>
+    </div>
+</body>
+
+</html>
