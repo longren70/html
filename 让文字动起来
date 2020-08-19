@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <title>让文字动起来</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        body {
+            background: rgb(41, 45, 62);
+        }
+        
+        .container {
+            font-size: 120px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .text {
+            fill: none;
+            stroke-width: 5;
+            stroke-dasharray: 0 240;
+            stroke-dashoffset: 0;
+        }
+        
+        .text:nth-child(4n + 1) {
+            stroke: rgb(39, 135, 230);
+            animation: text1 4s ease-in-out forwards infinite;
+            /*stroke-dashoffset: 1060;
+            stroke-dasharray: 60 100;       这个先做看效果，等写了@keyframes text1之后在剪掉  */
+        }
+        
+        .text:nth-child(4n + 2) {
+            stroke: rgb(47, 169, 92);
+            animation: text2 4s ease-in-out forwards infinite;
+        }
+        
+        .text:nth-child(4n + 3) {
+            stroke: rgb(249, 189, 56);
+            animation: text3 4s ease-in-out forwards infinite;
+        }
+        
+        .text:nth-child(4n + 4) {
+            stroke: rgb(235, 61, 50);
+            animation: text4 4s ease-in-out forwards infinite;
+        }
+        
+        @keyframes text1 {
+            100% {
+                stroke-dashoffset: 1000;
+                stroke-dasharray: 60 180;
+            }
+        }
+        
+        @keyframes text2 {
+            100% {
+                stroke-dashoffset: 1060;
+                stroke-dasharray: 60 180;
+            }
+        }
+        
+        @keyframes text3 {
+            100% {
+                stroke-dashoffset: 1120;
+                stroke-dasharray: 60 180;
+            }
+        }
+        
+        @keyframes text4 {
+            100% {
+                stroke-dashoffset: 1180;
+                stroke-dasharray: 60 180;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <svg viewBox="0 0 2000 300">     <!--2000是宽度，300是高度-->
+            <symbol id="line-text">
+                <text text-anchor="middle" x="50%" y="50%" dy=".4em">
+                    Microgoople让文字动起来
+                </text>
+            </symbol>
+            <use xlink:href="#line-text" class="text"></use>     <!--四种颜色-->
+            <use xlink:href="#line-text" class="text"></use>
+            <use xlink:href="#line-text" class="text"></use>
+            <use xlink:href="#line-text" class="text"></use>            
+        </svg>
+    </div>
+</body>
+
+</html>
