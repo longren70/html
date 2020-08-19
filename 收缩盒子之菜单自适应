@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>收缩盒子之菜单自适应</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .box {
+            width: 500px;
+            height: 300px;
+            margin: 100px auto;
+        }
+        
+        .box ul {
+            width: 100%;
+            list-style: none;
+            background-color: #339900;
+            display: flex;
+        }
+        
+        .box ul li {
+            height: 36px;
+            line-height: 36px;
+            text-align: center;
+            border-right: 2px solid #999999;
+            flex: 1;
+            /* flex: 1; 意思是：所有的元素平均分配。注意：要在父元素中display: flex;   */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul>
+            <li>首页</li>
+            <li>我的清单</li>
+            <li>最新商品</li>
+            <li>优惠促销</li>
+            <li>联系我们</li>
+        </ul>
+    </div>
+</body>
+
+</html>
