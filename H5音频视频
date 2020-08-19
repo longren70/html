@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H5音频和视频</title>
+</head>
+
+<body>
+    <div>
+        <audio src="./mp3/陈奕迅 - 因为爱情 (《将爱情进行到底》电影主题曲).mp3" controls autoplay loop></audio>
+    </div>
+
+    <div>
+        <video src="mp3/唯美樱花sp.jzsc.net.mp4" controls autoplay width="400" poster="./images/11.jpg"></video>
+    </div>
+
+    <div>
+        <video>
+            <!-- source标签要加上type属性，让浏览器自动选择播放文件格式，解决浏览器兼容问题 -->
+            <source src="../mp3/唯美樱花sp.jzsc.net.mp4" type="video/mp4">
+            <source src="../mp3/唯美樱花.flv" type="video/flv">                 
+        </video>
+    </div>
+
+</body>
+
+</html>
